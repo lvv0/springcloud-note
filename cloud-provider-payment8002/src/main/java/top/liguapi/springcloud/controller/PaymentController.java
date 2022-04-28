@@ -21,7 +21,7 @@ import java.util.List;
 public class PaymentController {
 
     @Autowired
-    private PaymentService paymentService;
+    PaymentService paymentService;
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -30,23 +30,23 @@ public class PaymentController {
     private String serverPort;
 
     @RequestMapping("create")
-    public CommonResult create(@RequestBody Payment payment) {
+    public CommonResult create(@RequestBody Payment payment){
         int result = paymentService.create(payment);
-        if (result == 1) {
+        if (result == 1){
             log.info("插入成功！");
-            return CommonResult.ok(payment, "插入成功，服务端口好为" + serverPort);
-        } else {
+            return CommonResult.ok(payment,"插入成功，服务端口好为" + serverPort);
+        }else {
             return CommonResult.fail("失败");
         }
     }
 
     @RequestMapping("getPayment/{id}")
-    public CommonResult getPayment(@PathVariable("id") Long id) {
+    public CommonResult getPayment(@PathVariable("id") Long id){
         Payment payment = paymentService.getPayment(id);
-        if (payment != null) {
+        if (payment != null){
             log.info("查询成功！");
-            return CommonResult.ok(payment, "查询成功，服务端口好为" + serverPort);
-        } else {
+            return CommonResult.ok(payment,"查询成功，服务端口好为" + serverPort);
+        }else {
             return CommonResult.fail("失败");
         }
     }

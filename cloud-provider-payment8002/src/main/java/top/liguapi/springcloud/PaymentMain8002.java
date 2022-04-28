@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @EnableEurekaClient
 @EnableDiscoveryClient //服务发现
-public class PaymentMain8001 {
+public class PaymentMain8002 {
     public static void main(String[] args) {
-        SpringApplication.run(PaymentMain8001.class, args);
+        SpringApplication.run(PaymentMain8002.class, args);
     }
 }
