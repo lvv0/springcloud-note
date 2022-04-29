@@ -5,15 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import top.liguapi.springcloud.entities.CommonResult;
 import top.liguapi.springcloud.entities.Payment;
 import top.liguapi.springcloud.service.PaymentService;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @RestController
 @RequestMapping("payment")
@@ -40,7 +38,7 @@ public class PaymentController {
         }
     }
 
-    @RequestMapping("getPayment/{id}")
+    @GetMapping("getPayment/{id}")
     public CommonResult getPayment(@PathVariable("id") Long id) {
         Payment payment = paymentService.getPayment(id);
         if (payment != null) {
@@ -64,5 +62,14 @@ public class PaymentController {
                     + element.getUri());
         }
         return this.discoveryClient;
+    }
+
+    @GetMapping("feign/timeout")
+    public String paymentFeignTimeOut()
+    {
+        System.out.println("*****paymentFeignTimeOut from port: "+serverPort);
+        //暂停几秒钟线程
+        try { TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { e.printStackTrace(); }
+        return serverPort;
     }
 }

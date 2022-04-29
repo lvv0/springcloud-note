@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="top.liguapi.springcloud.mapper.PaymentMapper">
-
     <insert id="create" parameterType="top.liguapi.springcloud.entities.Payment" useGeneratedKeys="true">
         insert into payment values(#{payment.id}, #{payment.serial})
     </insert>

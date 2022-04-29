@@ -2,6 +2,8 @@ package top.liguapi.springcloud.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,11 +23,22 @@ public class OrderController {
 
     @RequestMapping("create")
     public CommonResult create(Payment payment){
-        return restTemplate.postForObject(PAYMENT_URL + "/payment/create", payment, CommonResult.class);
+//        return restTemplate.postForObject(PAYMENT_URL + "/payment/create", payment, CommonResult.class);
+        return restTemplate.postForEntity(PAYMENT_URL + "/payment/create", payment, CommonResult.class).getBody();
     }
 
-    @RequestMapping("getPayment/{id}")
+    @GetMapping("getPayment/{id}")
     public CommonResult getPayment(@PathVariable("id") Long id){
         return restTemplate.getForObject(PAYMENT_URL + "/payment/getPayment/" + id, CommonResult.class);
+    }
+
+    @GetMapping("getForEntity/{id}")
+    public CommonResult getPayment2(@PathVariable("id") Long id){
+        ResponseEntity<CommonResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/getPayment/" + id, CommonResult.class);
+        if (entity.getStatusCode().is2xxSuccessful()){
+            return entity.getBody();
+        }else {
+            return CommonResult.fail("操作失败！");
+        }
     }
 }
