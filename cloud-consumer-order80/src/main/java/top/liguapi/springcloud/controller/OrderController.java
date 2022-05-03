@@ -22,23 +22,29 @@ public class OrderController {
     public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
 
     @RequestMapping("create")
-    public CommonResult create(Payment payment){
+    public CommonResult create(Payment payment) {
 //        return restTemplate.postForObject(PAYMENT_URL + "/payment/create", payment, CommonResult.class);
         return restTemplate.postForEntity(PAYMENT_URL + "/payment/create", payment, CommonResult.class).getBody();
     }
 
     @GetMapping("getPayment/{id}")
-    public CommonResult getPayment(@PathVariable("id") Long id){
+    public CommonResult getPayment(@PathVariable("id") Long id) {
         return restTemplate.getForObject(PAYMENT_URL + "/payment/getPayment/" + id, CommonResult.class);
     }
 
     @GetMapping("getForEntity/{id}")
-    public CommonResult getPayment2(@PathVariable("id") Long id){
+    public CommonResult getPayment2(@PathVariable("id") Long id) {
         ResponseEntity<CommonResult> entity = restTemplate.getForEntity(PAYMENT_URL + "/payment/getPayment/" + id, CommonResult.class);
-        if (entity.getStatusCode().is2xxSuccessful()){
+        if (entity.getStatusCode().is2xxSuccessful()) {
             return entity.getBody();
-        }else {
+        } else {
             return CommonResult.fail("操作失败！");
         }
+    }
+
+    @GetMapping("zipkin")
+    public String paymentZipkin() {
+        String result = restTemplate.getForObject(PAYMENT_URL + "/payment/zipkin/", String.class);
+        return result;
     }
 }

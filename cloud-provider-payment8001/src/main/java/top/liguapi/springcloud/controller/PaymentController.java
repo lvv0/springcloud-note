@@ -65,11 +65,19 @@ public class PaymentController {
     }
 
     @GetMapping("feign/timeout")
-    public String paymentFeignTimeOut()
-    {
-        System.out.println("*****paymentFeignTimeOut from port: "+serverPort);
+    public String paymentFeignTimeOut() {
+        System.out.println("*****paymentFeignTimeOut from port: " + serverPort);
         //暂停几秒钟线程
-        try { TimeUnit.SECONDS.sleep(3); } catch (InterruptedException e) { e.printStackTrace(); }
+        try {
+            TimeUnit.SECONDS.sleep(3);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         return serverPort;
+    }
+
+    @GetMapping("zipkin")
+    public String paymentZipkin() {
+        return "hi ,i'am paymentzipkin server fall back";
     }
 }
