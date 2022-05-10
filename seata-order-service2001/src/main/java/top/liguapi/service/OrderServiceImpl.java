@@ -2,21 +2,22 @@ package top.liguapi.service;
 
 import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.liguapi.mapper.OrderMapper;
 import top.liguapi.springcloud.entities.Order;
 
+import javax.annotation.Resource;
+
 @Service
 @Slf4j
 public class OrderServiceImpl implements OrderService {
-    @Autowired
+    @Resource
     private OrderMapper orderMapper;
 
-    @Autowired
+    @Resource
     private StorageService storageService;
 
-    @Autowired
+    @Resource
     private AccountService accountService;
 
     /**
@@ -25,7 +26,7 @@ public class OrderServiceImpl implements OrderService {
      * 下订单->减库存->减余额->改状态
      */
     @Override
-//    @GlobalTransactional(name = "fsp-create-order", rollbackFor = Exception.class)
+    @GlobalTransactional(name = "abc", rollbackFor = Exception.class)
     public void create(Order order) {
         log.info("------->下单开始");
         //本应用创建订单

@@ -6,13 +6,14 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.ComponentScan;
 
 @EnableDiscoveryClient
 @EnableFeignClients
 @SpringBootApplication
 @MapperScan("top.liguapi.mapper")
-public class SeataOrderMainApp2001 {
+public class SeataAccountMainApp2003 {
     public static void main(String[] args) {
-        SpringApplication.run(SeataOrderMainApp2001.class, args);
+        SpringApplication.run(SeataAccountMainApp2003.class, args);
     }
 }

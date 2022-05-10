@@ -1,0 +1,55 @@
+server:
+  port: 2001
+
+spring:
+  application:
+    name: seata-order-service
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 124.223.200.3:8848
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://124.223.200.3:3306/seata_order?useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    username: root
+    password: 123456
+
+feign:
+  hystrix:
+    enabled: false
+
+logging:
+  level:
+    io:
+      seata: info
+
+#mybatis:
+#  mapperLocations: classpath:top/liguapi/mapper/*.xml
+
+seata:
+  registry:
+    type: nacos
+    nacos:
+      application: seata-server
+      serverAddr: 124.223.200.3:8848
+      group: SEATA_GROUP
+      namespace: 4fd1e329-f363-4165-99dd-8c828860eec9
+      cluster: default
+      username: nacos
+      password: 123456
+  config:
+    type: nacos
+    nacos:
+      serverAddr: 124.223.200.3:8848
+      namespace: 4fd1e329-f363-4165-99dd-8c828860eec9
+      group: SEATA_GROUP
+      username: nacos
+      password: 123456
+      dataId: seataServer.properties
+
+
+
+
+
+
+
